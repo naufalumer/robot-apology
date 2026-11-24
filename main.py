@@ -14,8 +14,20 @@ ENTRY = (
     "will check the soil before I water anything.\n"
 )
 
+# Competition gate: entry.txt must hold 1-400 characters (UTF-8).
+MAX_CHARS = 400
+
+
+def check_gate(text):
+    n = len(text)
+    if not 1 <= n <= MAX_CHARS:
+        raise SystemExit(
+            f"entry rejected: {n} chars, outside the 1-{MAX_CHARS} gate"
+        )
+
 
 def main():
+    check_gate(ENTRY)
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
